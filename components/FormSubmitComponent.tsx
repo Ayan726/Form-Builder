@@ -24,6 +24,7 @@ const FormSubmitComponent = ({
     for (const field of content) {
       const actualValue = formValues.current[field.id] || "";
       const valid = FormElements[field.type].validate(field, actualValue);
+      
       if (!valid) {
         formErrors.current[field.id] = true;
       }
@@ -39,9 +40,8 @@ const FormSubmitComponent = ({
   }, []);
 
   const submitForm = async () => {
-    formErrors.current = {};
     const validForm = validateForm();
-
+    formErrors.current = {};
     if (!validForm) {
       setRenderKey(new Date().getTime());
       toast({
@@ -95,6 +95,7 @@ const FormSubmitComponent = ({
               submitValue={submitValue}
               isInvalid={formErrors.current[el.id]}
               defaultValue={formValues.current[el.id]}
+              formErrors={formErrors}
             />
           );
         })}
