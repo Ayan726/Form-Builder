@@ -23,6 +23,9 @@ model Form {
   visits      Int @default(0)
   submissions Int @default(0)
 
+  isProtected Boolean @default(false)
+  password    String  @default("")
+
   shareURL        String            @unique @default(uuid())
   FormSubmissions FormSubmissions[]
 
