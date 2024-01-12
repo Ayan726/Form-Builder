@@ -131,8 +131,6 @@ export async function GetFormContentByUrl(formUrl: string) {
   return await prisma.form.update({
     select: {
       content: true,
-      isProtected: true,
-      password: true,
     },
     data: {
       visits: {
@@ -176,44 +174,6 @@ export async function GetFormWithSubmissions(id: number) {
     },
     include: {
       FormSubmissions: true,
-    },
-  });
-}
-
-export async function ChangePassword(
-  id: number,
-  pass: string,
-  isProtected: boolean
-) {
-  const user = await currentUser();
-  if (!user) {
-    throw new UserNotFoundErr();
-  }
-  return await prisma.form.update({
-    data: {
-      isProtected,
-      password: pass,
-    },
-    where: {
-      id,
-      userId: user.id,
-    },
-  });
-}
-
-export async function GetFormWithCredentials(id: number) {
-  const user = await currentUser();
-  if (!user) {
-    throw new UserNotFoundErr();
-  }
-  return await prisma.form.findUnique({
-    select: {
-      isProtected: true,
-      password: true,
-    },
-    where: {
-      id,
-      userId: user.id,
     },
   });
 }
