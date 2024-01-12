@@ -1,6 +1,7 @@
 import { GetFormContentByUrl } from "@/actions/form";
 import { FormElementInstance } from "@/components/FormElements";
 import FormSubmitComponent from "@/components/FormSubmitComponent";
+import OtpComponent from "@/components/OtpComponent";
 import React from "react";
 
 const SubmitPage = async ({
@@ -16,7 +17,7 @@ const SubmitPage = async ({
 
   const formContent = JSON.parse(form.content) as FormElementInstance[];
 
-  return <FormSubmitComponent formUrl={params.formUrl} content={formContent} />;
+  return <FormSubmitComponent formUrl={params.formUrl} content={formContent} isProtected={form.isProtected} password={form.password} />;
 };
 
 export default SubmitPage;

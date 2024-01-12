@@ -1,5 +1,13 @@
 "use client";
-import React from "react";
+import { CreateForm } from "@/actions/form";
+import { formSchema, formSchemaType } from "@/schemas/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { BsFileEarmarkPlus } from "react-icons/bs";
+import { ImSpinner2 } from "react-icons/im";
+import * as z from "zod";
+import { Button } from "./ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,27 +17,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
-import { BsFileEarmarkPlus } from "react-icons/bs";
-import { ImSpinner2 } from "react-icons/im";
-import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "./ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "./ui/use-toast";
-import { formSchema, formSchemaType } from "@/schemas/form";
-import { CreateForm } from "@/actions/form";
-import { useRouter } from "next/navigation";
 
 const CreateFormBtn = () => {
   const router = useRouter();
@@ -60,7 +58,7 @@ const CreateFormBtn = () => {
       <DialogTrigger asChild>
         <Button
           variant={"outline"}
-          className="group border border-primary/20 h-[190px] items-center justify-center flex flex-col hover:border-primary hover:cursor-pointer border-dashed gap-4"
+          className="group border border-primary/20 h-[225px] items-center justify-center flex flex-col hover:border-primary hover:cursor-pointer border-dashed gap-4"
         >
           <BsFileEarmarkPlus className="h-8 w-8 text-muted-foreground group-hover:text-primary" />
           <p className="font-bold text-xl text-muted-foreground group-hover:text-primary">

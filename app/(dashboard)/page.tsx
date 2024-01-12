@@ -1,4 +1,8 @@
 import { GetFormStats, GetForms } from "@/actions/form";
+import CreateFormBtn from "@/components/CreateFormBtn";
+import PasswordBtn from "@/components/PasswordBtn";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,21 +11,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ReactNode, Suspense } from "react";
-import { LuView } from "react-icons/lu";
-import { FaWpforms } from "react-icons/fa";
-import { HiCursorClick } from "react-icons/hi";
-import { TbArrowBounce } from "react-icons/tb";
 import { Separator } from "@/components/ui/separator";
-import CreateFormBtn from "@/components/CreateFormBtn";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Form } from "@prisma/client";
-import { Badge } from "@/components/ui/badge";
 import { formatDistance } from "date-fns";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { ReactNode, Suspense } from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaWpforms } from "react-icons/fa";
+import { HiCursorClick } from "react-icons/hi";
+import { LuView } from "react-icons/lu";
+import { TbArrowBounce } from "react-icons/tb";
 
 export default function Home() {
   return (
@@ -134,7 +134,7 @@ export function StatsCard({
 }
 
 function FormCardSkeleton() {
-  return <Skeleton className="bore2 border-primary/20 h-[190px] w-full" />;
+  return <Skeleton className="bore2 border-primary/20 h-[225px] w-full" />;
 }
 async function FormCards() {
   const forms = await GetForms();
@@ -172,7 +172,8 @@ function FormCard({ form }: { form: Form }) {
         {form.description || "No description"}
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="flex flex-col">
+        <PasswordBtn form={form} />
         {form.published && (
           <Button className="w-full mt-2 text-md gap-4" asChild>
             <Link href={`/forms/${form.id}`}>

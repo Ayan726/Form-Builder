@@ -1,30 +1,51 @@
 "use client";
-import React, { useCallback, useRef, useState, useTransition } from "react";
-import { FormElementInstance, FormElements } from "./FormElements";
-import { Button } from "./ui/button";
-import { HiCursorClick } from "react-icons/hi";
-import { toast } from "./ui/use-toast";
-import { ImSpinner2 } from "react-icons/im";
 import { SubmitForm } from "@/actions/form";
+import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import { HiCursorClick } from "react-icons/hi";
+import { ImSpinner2 } from "react-icons/im";
+import { FormElementInstance, FormElements } from "./FormElements";
+import OtpComponent from "./OtpComponent";
+import { Button } from "./ui/button";
+import { toast } from "./ui/use-toast";
 
 const FormSubmitComponent = ({
   formUrl,
   content,
+  isProtected,
+  password,
 }: {
   formUrl: string;
   content: FormElementInstance[];
+  isProtected: boolean;
+  password: string;
 }) => {
   const formValues = useRef<{ [key: string]: string }>({});
   const formErrors = useRef<{ [key: string]: boolean }>({});
   const [renderKey, setRenderKey] = useState(new Date().getTime());
   const [submitted, setSubmitted] = useState(false);
   const [pending, startTransition] = useTransition();
+  const [otp, setOtp] = useState<number>(0);
+  const [passCracked, setPassCracked] = useState(false);
+  const [otpError, setOtpError] = useState(false);
+
+  useEffect(() => {
+    const stringOtp = otp.toString();
+    if (stringOtp.length !== 4) return;
+    if (stringOtp === password) {
+      setPassCracked(true);
+      setOtpError(false);
+    } else setOtpError(true);
+  }, [otp]);
+
+  const handleOtpChange = (value: number) => {
+    setOtp(value);
+  };
 
   const validateForm: () => boolean = useCallback(() => {
     for (const field of content) {
       const actualValue = formValues.current[field.id] || "";
       const valid = FormElements[field.type].validate(field, actualValue);
-      
+
       if (!valid) {
         formErrors.current[field.id] = true;
       }
@@ -66,6 +87,9 @@ const FormSubmitComponent = ({
 
     console.log("FORM VALUES", formValues.current);
   };
+
+  if (isProtected && !passCracked)
+    return <OtpComponent otp={otp} handleOtpChange={handleOtpChange} err={otpError} />;
 
   if (submitted) {
     return (
