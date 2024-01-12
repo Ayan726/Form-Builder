@@ -57,7 +57,7 @@ const PasswordDialogContent = ({ form }: { form: Form }) => {
         <DialogHeader>
           <DialogTitle>Set password</DialogTitle>
           <DialogDescription>
-            Make changes to your password here. Click save when you're done.
+            Make changes to your password here. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col gap-3 w-full">

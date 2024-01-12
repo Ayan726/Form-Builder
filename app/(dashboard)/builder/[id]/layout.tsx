@@ -1,11 +1,7 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
 
-const layout = ({children}: {children: ReactNode}) => {
-  return (
-    <div className='flex w-full flex-grow mx-auto'>
-      {children}
-    </div>
-  )
-}
+const layout = ({ children }: { children: ReactNode }) => {
+  return <div className="flex w-full flex-grow mx-auto">{children}</div>;
+};
 
-export default layout
+export default layout;
