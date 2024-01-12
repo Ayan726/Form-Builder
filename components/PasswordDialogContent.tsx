@@ -74,7 +74,9 @@ const PasswordDialogContent = ({ form }: { form: Form }) => {
             <Input
               className={cn(err && "border-red-500")}
               onBlur={(e) => {
-                setErr(e.target.value.length !== 4);
+                setErr(
+                  e.target.value.length !== 4 || e.target.value[0] === "0"
+                );
               }}
               value={pass}
               disabled={!checkValue}
@@ -86,7 +88,7 @@ const PasswordDialogContent = ({ form }: { form: Form }) => {
             />
             {err && (
               <p className="text-red-500 text-sm">
-                Please enter a 4 digit password
+                Please enter a 4 digit password or exclude leading zeros
               </p>
             )}
           </>
@@ -97,7 +99,8 @@ const PasswordDialogContent = ({ form }: { form: Form }) => {
               if (err) {
                 toast({
                   title: "Error",
-                  description: "Please enter a four digit password!",
+                  description:
+                    "Please enter a four digit password or exclude leading zeros!",
                   variant: "destructive",
                 });
                 return;
