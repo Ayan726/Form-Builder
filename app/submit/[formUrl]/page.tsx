@@ -1,8 +1,6 @@
 import { GetFormContentByUrl } from "@/actions/form";
 import { FormElementInstance } from "@/components/FormElements";
 import FormSubmitComponent from "@/components/FormSubmitComponent";
-import OtpComponent from "@/components/OtpComponent";
-import React from "react";
 
 const SubmitPage = async ({
   params,

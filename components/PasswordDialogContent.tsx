@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 import { Form } from "@prisma/client";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { AiOutlineLoading } from "react-icons/ai";
 import { Input } from "./ui/input";
 import { Switch } from "./ui/switch";
@@ -25,6 +25,7 @@ const PasswordDialogContent = ({ form }: { form: Form }) => {
   const [err, setErr] = useState(false);
   const [pending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
+
 
   const changePassword = async (
     id: number,
@@ -96,7 +97,7 @@ const PasswordDialogContent = ({ form }: { form: Form }) => {
         <DialogFooter>
           <Button
             onClick={() => {
-              if (err) {
+              if (err || pass.length != 4) {
                 toast({
                   title: "Error",
                   description:
